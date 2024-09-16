@@ -2,7 +2,7 @@ import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FiSend } from "react-icons/fi";
-import carlImg from "../assets/HuzaifaImg.png"
+//import carlImg from "../assets/HuzaifaImg.png"
 import {motion} from "framer-motion"
 
 const ContactForm = () => {
@@ -44,10 +44,10 @@ const ContactForm = () => {
       setIsSending(true);
       emailjs
         .send(
-          "service_28xcjh8", // Your service ID
-          "template_n5d7s2u", // Your template ID
+          "service_gv6kgmu", // Your service ID
+          "template_x24yedl", // Your template ID
           formData,
-          "sTNkgVtI7Q-amseLW" // Your public API key
+          "D0DLXMDKMib1imp79" // Your public API key
         )
         .then(() => {
           toast.success("Message sent successfully");
