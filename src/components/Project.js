@@ -1,8 +1,17 @@
+import { useState } from "react";
 import { MdArrowOutward } from "react-icons/md";
 import { PROJECTS } from "../constants";
 import { motion } from "framer-motion";
 
 const Project = () => {
+  // State to handle which project is clicked on mobile
+  const [activeProject, setActiveProject] = useState(null);
+
+  // Toggle function to show/hide project details
+  const toggleProjectDetails = (projectId) => {
+    setActiveProject((prev) => (prev === projectId ? null : projectId));
+  };
+
   return (
     <section className="pt-20" id="project">
       <motion.h2
@@ -23,24 +32,26 @@ const Project = () => {
             whileHover={{ scale: 1.05 }}
             key={project.id}
             className="group relative overflow-hidden rounded-3xl"
+            onClick={() => toggleProjectDetails(project.id)} // Handle click for mobile
           >
             <motion.img
               whileHover={{ scale: 1.1 }}
               src={project.image}
               alt={project.name}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="h-full w-full object-cover rounded-3xl transition-transform duration-500"
             />
 
+            {/* Conditional rendering based on click for mobile */}
             <motion.div
               initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
+              animate={{ opacity: activeProject === project.id ? 1 : 0 }}
               transition={{ duration: 0.5 }}
-              className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white opacity-0 backdrop-blur-lg transition-opacity duration-500 group-hover:opacity-100"
+              className={`absolute inset-0 z-10 flex flex-col items-center justify-center text-white backdrop-blur-lg transition-opacity duration-500 ${
+                activeProject === project.id ? "pointer-events-auto" : "pointer-events-none"
+              }`}
             >
               <h3 className="mb-2 text-xl sm:text-lg md:text-xl lg:text-2xl">{project.name}</h3>
-              <p className="mb-12 p-4 text-center text-sm sm:text-xs md:text-sm lg:text-base">
-                {project.description}
-              </p>
+           
               <a
                 href={project.githubLink}
                 target="_blank"
@@ -59,4 +70,5 @@ const Project = () => {
     </section>
   );
 };
+
 export default Project;
